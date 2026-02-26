@@ -37,7 +37,7 @@ function renderExport() {
         q3: state.q3,
     };
     const compressed = LZString.compressToEncodedURIComponent(JSON.stringify(shareData));
-    const shareUrl = `${window.location.origin}/share.html#${compressed}`;
+    const shareUrl = `${window.location.origin}${import.meta.env.BASE_URL}share.html#${compressed}`;
     document.getElementById('link-preview').textContent = shareUrl;
 }
 
