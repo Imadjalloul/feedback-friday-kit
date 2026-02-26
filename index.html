@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feedback Friday Kit — Structured Feedback Requests for Makers</title>
+  <meta name="description" content="Generate beautiful, structured feedback request pages for Reddit, Product Hunt, and maker communities. Free, no sign-up required." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- ===== LANDING SECTION ===== -->
+    <section id="landing" class="landing">
+      <nav class="nav">
+        <div class="nav-brand">
+          <span class="nav-icon">📋</span>
+          <span class="nav-title">Feedback Friday Kit</span>
+        </div>
+        <button id="nav-cta" class="btn btn-primary btn-sm">Create Your Kit →</button>
+      </nav>
+
+      <div class="hero">
+        <div class="hero-badge">Free · No sign-up · Open source</div>
+        <h1 class="hero-title">
+          Stop posting <span class="gradient-text">bad feedback requests.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Generate structured, beautiful feedback pages in 60 seconds.<br />
+          Copy to Reddit, share a link, or download a standalone page.
+        </p>
+        <button id="hero-cta" class="btn btn-primary btn-lg">
+          <span>Build Your Feedback Kit</span>
+          <span class="btn-arrow">→</span>
+        </button>
+      </div>
+
+      <div class="features">
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Structured Format</h3>
+          <p>Problem, demo, audience, and focused questions — everything reviewers need.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📋</div>
+          <h3>Reddit-Ready</h3>
+          <p>One click to copy a perfectly formatted Reddit post with markdown.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔗</div>
+          <h3>Shareable Link</h3>
+          <p>Get a URL that renders your feedback request as a beautiful page.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📥</div>
+          <h3>Download HTML</h3>
+          <p>Export a standalone page with embedded screenshots — host it anywhere.</p>
+        </div>
+      </div>
+
+      <div class="how-it-works">
+        <h2>How it works</h2>
+        <div class="steps-row">
+          <div class="step-item"><span class="step-num">1</span><span>Describe your project</span></div>
+          <div class="step-arrow">→</div>
+          <div class="step-item"><span class="step-num">2</span><span>Add demo & screenshots</span></div>
+          <div class="step-arrow">→</div>
+          <div class="step-item"><span class="step-num">3</span><span>Write 3 questions</span></div>
+          <div class="step-arrow">→</div>
+          <div class="step-item"><span class="step-num">4</span><span>Export & share</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== WIZARD SECTION ===== -->
+    <section id="wizard" class="wizard hidden">
+      <div class="wizard-header">
+        <button id="back-to-landing" class="btn btn-ghost btn-sm">← Back</button>
+        <div class="progress-bar">
+          <div class="progress-steps">
+            <div class="progress-step active" data-step="1"><span>1</span> Project</div>
+            <div class="progress-step" data-step="2"><span>2</span> Demo</div>
+            <div class="progress-step" data-step="3"><span>3</span> Audience</div>
+            <div class="progress-step" data-step="4"><span>4</span> Questions</div>
+          </div>
+          <div class="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
+        </div>
+      </div>
+
+      <div class="wizard-body">
+        <div class="wizard-form">
+          <!-- STEP 1: Project -->
+          <div class="wizard-step active" data-step="1">
+            <h2>Tell us about your project</h2>
+            <p class="step-desc">The basics — what you're building and why.</p>
+            <div class="form-group">
+              <label for="project-name">Project Name <span class="required">*</span></label>
+              <input type="text" id="project-name" placeholder="e.g. TaskFlow, NoteSync..." maxlength="60" />
+              <span class="char-count"><span id="name-count">0</span>/60</span>
+            </div>
+            <div class="form-group">
+              <label for="project-tagline">One-Line Tagline</label>
+              <input type="text" id="project-tagline" placeholder="e.g. A smarter way to manage daily tasks" maxlength="120" />
+              <span class="char-count"><span id="tagline-count">0</span>/120</span>
+            </div>
+            <div class="form-group">
+              <label for="project-problem">What problem does it solve? <span class="required">*</span></label>
+              <textarea id="project-problem" rows="4" placeholder="Describe the pain point your project addresses..."></textarea>
+            </div>
+          </div>
+
+          <!-- STEP 2: Demo -->
+          <div class="wizard-step" data-step="2">
+            <h2>Show your work</h2>
+            <p class="step-desc">Screenshots, videos, or a link to your demo.</p>
+            <div class="form-group">
+              <label for="demo-url">Demo / Live URL</label>
+              <input type="url" id="demo-url" placeholder="https://your-app.com or a Loom/YouTube link" />
+            </div>
+            <div class="form-group">
+              <label>Screenshots / Media</label>
+              <div id="upload-zone" class="upload-zone">
+                <div class="upload-placeholder">
+                  <span class="upload-icon">📸</span>
+                  <p>Drag & drop images here, or <span class="upload-link">browse files</span></p>
+                  <p class="upload-hint">PNG, JPG, GIF, WebP · Max 5MB each · Up to 5 images</p>
+                </div>
+                <input type="file" id="file-input" accept="image/*" multiple hidden />
+              </div>
+              <div id="media-preview" class="media-preview"></div>
+            </div>
+            <div class="form-group">
+              <label for="embed-url">Or paste an image/video URL</label>
+              <div class="input-with-btn">
+                <input type="url" id="embed-url" placeholder="https://i.imgur.com/example.png" />
+                <button id="add-embed" class="btn btn-secondary btn-sm">Add</button>
+              </div>
+              <div id="embeds-list" class="embeds-list"></div>
+            </div>
+          </div>
+
+          <!-- STEP 3: Audience -->
+          <div class="wizard-step" data-step="3">
+            <h2>Who is this for?</h2>
+            <p class="step-desc">Help reviewers understand your target audience.</p>
+            <div class="form-group">
+              <label for="target-user">Target User <span class="required">*</span></label>
+              <textarea id="target-user" rows="3" placeholder="e.g. Indie hackers who struggle with time management and need a simple, no-frills task app..."></textarea>
+            </div>
+            <div class="form-group">
+              <label for="use-case">Primary Use Case</label>
+              <textarea id="use-case" rows="3" placeholder="e.g. A developer working on side projects opens the app every morning to plan their day..."></textarea>
+            </div>
+            <div class="form-group">
+              <label for="current-stage">Current Stage</label>
+              <div class="stage-pills">
+                <button class="pill" data-value="idea">💡 Idea</button>
+                <button class="pill" data-value="prototype">🔧 Prototype</button>
+                <button class="pill" data-value="mvp">🚀 MVP</button>
+                <button class="pill" data-value="beta">🧪 Beta</button>
+                <button class="pill" data-value="launched">✅ Launched</button>
+              </div>
+              <input type="hidden" id="current-stage" />
+            </div>
+          </div>
+
+          <!-- STEP 4: Questions -->
+          <div class="wizard-step" data-step="4">
+            <h2>What do you want to know?</h2>
+            <p class="step-desc">Ask 3 focused questions. We've got some templates to get you started.</p>
+            <div class="form-group">
+              <label for="q1">Question 1 <span class="required">*</span></label>
+              <input type="text" id="q1" placeholder="e.g. Does the value proposition make sense?" />
+              <div class="question-templates">
+                <button class="template-btn" data-target="q1" data-text="Is the problem I'm solving clear from the landing page?">Problem clarity</button>
+                <button class="template-btn" data-target="q1" data-text="Does the value proposition resonate with you?">Value prop</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="q2">Question 2 <span class="required">*</span></label>
+              <input type="text" id="q2" placeholder="e.g. Would you use this? Why or why not?" />
+              <div class="question-templates">
+                <button class="template-btn" data-target="q2" data-text="Would you use this regularly? Why or why not?">Usage intent</button>
+                <button class="template-btn" data-target="q2" data-text="What's the first thing you'd change about the UI?">UI feedback</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="q3">Question 3 <span class="required">*</span></label>
+              <input type="text" id="q3" placeholder="e.g. What's confusing or missing?" />
+              <div class="question-templates">
+                <button class="template-btn" data-target="q3" data-text="What feature is missing that would make this a must-have?">Missing feature</button>
+                <button class="template-btn" data-target="q3" data-text="How much would you pay for this (if anything)?">Pricing</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation Buttons -->
+          <div class="wizard-nav">
+            <button id="prev-btn" class="btn btn-ghost" disabled>← Previous</button>
+            <button id="next-btn" class="btn btn-primary">Next →</button>
+          </div>
+        </div>
+
+        <!-- LIVE PREVIEW -->
+        <div class="wizard-preview">
+          <div class="preview-header">
+            <span class="preview-label">📱 Live Preview</span>
+          </div>
+          <div id="preview-content" class="preview-content">
+            <div class="preview-empty">Start filling in the form to see your feedback page here...</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== EXPORT SECTION ===== -->
+    <section id="export" class="export hidden">
+      <div class="export-header">
+        <button id="back-to-wizard" class="btn btn-ghost btn-sm">← Edit</button>
+        <h2>Your Feedback Kit is ready! 🎉</h2>
+        <p>Choose how you'd like to share it.</p>
+      </div>
+      <div class="export-cards">
+        <div class="export-card">
+          <div class="export-card-icon">📋</div>
+          <h3>Copy Reddit Post</h3>
+          <p>Formatted markdown ready for r/startups, r/SideProject, etc.</p>
+          <button id="copy-reddit" class="btn btn-primary">Copy to Clipboard</button>
+          <div id="reddit-preview" class="code-preview"></div>
+        </div>
+        <div class="export-card">
+          <div class="export-card-icon">🔗</div>
+          <h3>Shareable Link</h3>
+          <p>A URL that renders your feedback request as a clean page.</p>
+          <button id="copy-link" class="btn btn-primary">Copy Link</button>
+          <div id="link-preview" class="link-preview"></div>
+        </div>
+        <div class="export-card">
+          <div class="export-card-icon">📥</div>
+          <h3>Download HTML</h3>
+          <p>Self-contained page with embedded images — host anywhere.</p>
+          <button id="download-html" class="btn btn-primary">Download .html</button>
+        </div>
+      </div>
+      <div class="export-footer">
+        <button id="start-over" class="btn btn-ghost">Start Over</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
